@@ -8,8 +8,8 @@ This can be used to run updates on offline guests during off hours for example.
 Requirements
 ------------
 
-The qemu-guest-agent is mandatory on any guest targeted by the p^laybook. It is used to turn on/off offlines guests.
-All tasks are using the Proxmox API, you can run the playbook on localhost only.
+The qemu-guest-agent is mandatory on any guest targeted by the playbook. It is used to turn on/off offline guests.
+All tasks are using Proxmox API, you can run the playbook on localhost only.
 
 
 Defaults Variables

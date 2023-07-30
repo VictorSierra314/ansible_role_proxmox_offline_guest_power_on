@@ -16,9 +16,11 @@ Defaults Variables
 ------------------
 
 pve_vm_ids: List all vmids here. It has to be a list because the role will loop into each id. You can use multiple range.
+```
   - "{{ range(100, 160) | map('string') | list }}"
   - "{{ range(200, 880) | map('string') | list }}"
   - 999  
+```
 delay_time: Delay until the role start powering off vm previously stopped. Delay time is in minutes.
 
 Vars Variables

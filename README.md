@@ -31,8 +31,13 @@ Example Playbook
 ----------------
 
     - hosts: localhost
+      vars:
+	pve_vm_ids:
+	  - "{{ range(100, 160) | map('string') | list }}"
+	  - 888
+	delay_time: 60
       roles:
-         - { role: username.rolename, x: 42 }
+         - victorsierra314.ansible_role_proxmox_offline_guest_power_on
 
 License
 -------
@@ -42,4 +47,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+I have been working with Proxmox for quite some time now. Took me some time to get to gibhut but I'm glad I can share what I have build along the year. Enjoy.

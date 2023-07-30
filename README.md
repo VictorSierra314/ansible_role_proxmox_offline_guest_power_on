@@ -1,5 +1,5 @@
-Role Name
-=========
+ansible_role_proxmox_offline_guest_power_on
+===========================================
 
 This role relies on Proxmox API and the qemu-guest-agent. On a defined number of VMIDs, it power-on any offline guest.
 After a defined number of minutes, the role will shut down previously stopped guests.

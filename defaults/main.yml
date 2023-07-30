@@ -1,0 +1,11 @@
+---
+# defaults file for proxmox_offline_guest_power_on
+#
+# List all your VM IDs here. This will be used to take/delete snapshot
+pve_vm_ids:
+  - "{{ range(100, 199) | map('string') | list }}"
+  - "{{ range(400, 599) | map('string') | list }}"
+  - 999
+
+# Delay in minutes before the previouslly stopped guest are powered down
+delay_time: 30

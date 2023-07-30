@@ -1,0 +1,52 @@
+---
+# tasks file for proxmox_offline_guest_power_on
+#
+- name: Check and register status of proxmox guests
+  community.general.proxmox_kvm:
+    api_user: "{{ pve_api_user }}"
+    api_token_id: "{{ pve_api_token_id }}"
+    api_token_secret: "{{ pve_api_token_secret }}"
+    api_host: "{{ pve_api_host }}"
+    vmid: "{{ item }}"
+    state: current
+  register: proxmox_guest_status
+  loop: "{{ pve_vm_ids | flatten }}"
+  delegate_to: localhost
+  run_once: yes
+
+# Comment this out if you need debug info on the guest os state info
+#- debug:
+#    msg: "Item: {{ item.item }} - Status: {{ item.status }}"
+#  loop: "{{ proxmox_guest_status.results }}"
+#  delegate_to: localhost
+#  run_once: yes
+
+- name: Turn ON proxmox guest 
+  community.general.proxmox_kvm:
+    api_user: "{{ pve_api_user }}"
+    api_token_id: "{{ pve_api_token_id }}"
+    api_token_secret: "{{ pve_api_token_secret }}"
+    api_host: "{{ pve_api_host }}"
+    vmid: "{{ item.item }}"
+    state: started
+  loop: "{{ proxmox_guest_status.results }}"
+  when: item.status == 'stopped'
+  delegate_to: localhost
+  run_once: yes
+
+- name: Pause for {{ delay_time }}minutes before powering down previoulsy stopped guests
+  pause:
+    minutes: "{{ delay_time }}"
+
+- name: Turn OFF previously stopped guest os after patching.
+  community.general.proxmox_kvm:
+    api_user: "{{ pve_api_user }}"
+    api_token_id: "{{ pve_api_token_id }}"
+    api_token_secret: "{{ pve_api_token_secret }}"
+    api_host: "{{ pve_api_host }}"
+    vmid: "{{ item.item }}"
+    state: stopped
+  loop: "{{ proxmox_guest_status.results }}"
+  when: item.status == 'stopped'
+  delegate_to: localhost
+  run_once: yes

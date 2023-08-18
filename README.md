@@ -8,25 +8,25 @@ This can be used to run updates on offline guests during off hours for example.
 Requirements
 ------------
 
-The qemu-guest-agent is mandatory on any guest targeted by the playbook. It is used to turn on/off offline guests.  
+The qemu-guest-agent is mandatory for any guest targeted by the playbook. It is used to turn on/off offline guests.  
 All tasks are using Proxmox API, you can run the playbook on localhost only.
 
 
 Defaults Variables
 ------------------
 
-pve_vm_ids: List all vmids here. It has to be a list because the role will loop into each id. You can use multiple range.
+pve_vm_ids: List all vmids here. It has to be a list because the role will loop into each id. You can use multiple ranges.
 ```
   - "{{ range(100, 160) | map('string') | list }}"
   - "{{ range(200, 880) | map('string') | list }}"
   - 999  
 ```
-delay_time: Delay until the role start powering off vm previously stopped. Delay time is in minutes.
+delay_time: Delay until the role starts powering off vm previously stopped. The delay time is in minutes.
 
 Vars Variables
 --------------
 
-All API login info are in there.  
+All API login info is in there.  
 It's using the API token authentication process. You have to provide the user id, user token id and secret.
  
 Example Playbook
@@ -49,4 +49,4 @@ BSD
 Author Information
 ------------------
 
-I have been working with Proxmox for quite some time now. Took me some time to get to gibhut but I'm glad I can share what I have build along the year. Enjoy.
+I have been working with Proxmox for quite some time now. Took me some time to get to gibhut but I'm glad I can share what I have built over the year. Enjoy.

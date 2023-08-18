@@ -17,9 +17,9 @@ Defaults Variables
 
 pve_vm_ids: List all vmids here. It has to be a list because the role will loop into each id. You can use multiple ranges.
 ```
-  - "{{ range(100, 160) | map('string') | list }}"
-  - "{{ range(200, 880) | map('string') | list }}"
-  - 999  
+- "{{ range(100, 160) | map('string') | list }}"
+- "{{ range(200, 880) | map('string') | list }}"
+- 999  
 ```
 delay_time: Delay until the role starts powering off vm previously stopped. The delay time is in minutes.
 
@@ -31,15 +31,17 @@ It's using the API token authentication process. You have to provide the user id
  
 Example Playbook
 ----------------
+```
+- hosts: localhost
+  vars:
+    pve_vm_ids:
+      - "{{ range(100, 160) | map('string') | list }}"
+      - 888
+    delay_time: 60
+  roles:
+    - victorsierra314.ansible_role_proxmox_offline_guest_power_on
+```
 
-    - hosts: localhost
-      vars:
-        pve_vm_ids:
-          - "{{ range(100, 160) | map('string') | list }}"
-          - 888
-        delay_time: 60
-      roles:
-         - victorsierra314.ansible_role_proxmox_offline_guest_power_on
 
 License
 -------
